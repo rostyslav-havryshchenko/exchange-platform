@@ -16,7 +16,7 @@ const { Text } = Typography;
 const { Option } = Select;
 
 interface PriceChartProps {
-  height?: number;
+  height: number;
 }
 
 const timePeriodOptions = [
@@ -27,7 +27,7 @@ const timePeriodOptions = [
   { value: '90', label: '90 Days' }
 ];
 
-const PriceChart: React.FC<PriceChartProps> = ({ height = 400 }) => {
+const PriceChart: React.FC<PriceChartProps> = ({ height }) => {
   const [cryptocurrencies, setCryptocurrencies] = useState<CryptoData[]>([]);
   const [selectedCrypto, setSelectedCrypto] = useState<string>('');
   const [timePeriod, setTimePeriod] = useState<TimePeriod>('7');
