@@ -9,8 +9,8 @@ import { Layout } from 'antd';
 import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
 import { Suspense } from 'react';
 import './App.scss';
-import AppMenu from './components/AppMenu';
-import routes from './common/routes';
+import routes from './common/routes/routes';
+import { AppMenu } from './common/components';
 
 const { Header, Content } = Layout;
 

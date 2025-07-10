@@ -5,6 +5,8 @@
  * Free, no API key required, no CORS restrictions.
  */
 
+import { showNotification } from "../../../common/utils";
+
 const BASE_URL = 'https://api.coingecko.com/api/v3';
 
 export interface CryptoData {
@@ -39,7 +41,6 @@ class CoinGeckoService {
   async getTopCryptocurrencies(limit: number = 10): Promise<CryptoData[]> {
     try {
       const url = `${BASE_URL}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${limit}&page=1&sparkline=false`;
-      
       const response = await fetch(url);
       
       if (!response.ok) {
@@ -47,18 +48,16 @@ class CoinGeckoService {
       }
 
       const data: CryptoData[] = await response.json();
-      console.log('CoinGecko data loaded:', data);
+
       return data;
     } catch (error) {
-      console.error('Error fetching cryptocurrencies:', error);
-      throw error;
+      this._handleApiError('cryptocurrencies');
     }
   }
 
   async getCryptocurrencyPrice(id: string): Promise<number> {
     try {
       const url = `${BASE_URL}/simple/price?ids=${id}&vs_currencies=usd`;
-      
       const response = await fetch(url);
       
       if (!response.ok) {
@@ -66,19 +65,18 @@ class CoinGeckoService {
       }
 
       const data = await response.json();
+
       return data[id]?.usd || 0;
     } catch (error) {
-      console.error('Error fetching price:', error);
-      throw error;
+      this._handleApiError('cryptocurrencies price');
     }
   }
 
   async getPriceHistory(id: string, days: TimePeriod = '7'): Promise<PriceDataPoint[]> {
     try {
       const url = `${BASE_URL}/coins/${id}/market_chart?vs_currency=usd&days=${days}`;
-      
       const response = await fetch(url);
-      
+
       if (!response.ok) {
         throw new Error(`API request failed: ${response.status} ${response.statusText}`);
       }
@@ -92,32 +90,20 @@ class CoinGeckoService {
         date: new Date(point[0]).toLocaleDateString()
       }));
 
-      console.log('Price history loaded:', priceData);
       return priceData;
     } catch (error) {
-      console.error('Error fetching price history:', error);
-      throw error;
+      this._handleApiError('cryptocurrencies history');
     }
   }
 
-  async testConnection(): Promise<boolean> {
-    try {
-      const url = `${BASE_URL}/ping`;
-      const response = await fetch(url);
-      
-      if (!response.ok) {
-        console.error('API Error:', response.status, response.statusText);
-        return false;
-      }
-
-      const data = await response.json();
-      console.log('CoinGecko API Test Success:', data);
-      return true;
-    } catch (error) {
-      console.error('API Test Failed:', error);
-      return false;
-    }
-  }
+  private _handleApiError(context: string): never {
+    showNotification({
+      type: 'error',
+      message: `Failed to load ${context}`,
+      description: `Unable to fetch ${context}. Please try again later.`,
+    });
+    throw new Error(`API request failed ${context}`);
+}
 }
 
 export const coinGeckoService = new CoinGeckoService(); 

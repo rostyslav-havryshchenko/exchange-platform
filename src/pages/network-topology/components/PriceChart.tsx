@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Card, Select, Space, Typography, Spin, Alert } from 'antd';
+import { Card, Select, Space, Typography, Spin } from 'antd';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { coinGeckoService, type CryptoData, type PriceDataPoint, type TimePeriod } from '../services/coingecko';
 
@@ -31,7 +31,6 @@ const PriceChart: React.FC<PriceChartProps> = ({ height = 400 }) => {
   const [timePeriod, setTimePeriod] = useState<TimePeriod>('7');
   const [priceData, setPriceData] = useState<PriceDataPoint[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string>('');
 
   // Load available cryptocurrencies
   useEffect(() => {
@@ -43,7 +42,6 @@ const PriceChart: React.FC<PriceChartProps> = ({ height = 400 }) => {
           setSelectedCrypto(data[0].id);
         }
       } catch (err) {
-        setError('Failed to load cryptocurrencies');
         console.error('Error loading cryptocurrencies:', err);
       }
     };
@@ -57,13 +55,11 @@ const PriceChart: React.FC<PriceChartProps> = ({ height = 400 }) => {
 
     const loadPriceData = async () => {
       setLoading(true);
-      setError('');
 
       try {
         const data = await coinGeckoService.getPriceHistory(selectedCrypto, timePeriod);
         setPriceData(data);
       } catch (err) {
-        setError('Failed to load price data');
         console.error('Error loading price data:', err);
       } finally {
         setLoading(false);
@@ -159,15 +155,6 @@ const PriceChart: React.FC<PriceChartProps> = ({ height = 400 }) => {
               </span>
             </Text>
           </div>
-        )}
-
-        {error && (
-          <Alert
-            message="Error"
-            description={error}
-            type="error"
-            showIcon
-          />
         )}
 
         <div style={{ height, position: 'relative' }}>
