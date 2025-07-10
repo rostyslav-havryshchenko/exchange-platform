@@ -1,10 +1,16 @@
+/**
+ * NetworkTopology.tsx
+ *
+ * Network Topology page now only displays the Cryptocurrency Price Chart.
+ */
+
 import React from 'react';
+import PriceChart from '../components/PriceChart';
 
 const NetworkTopology: React.FC = () => {
   return (
     <div>
-      <h2>Network Topology</h2>
-      <p>Placeholder for Network Topology page.</p>
+      <PriceChart height={400} />
     </div>
   );
 };
