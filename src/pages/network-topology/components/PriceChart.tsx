@@ -9,6 +9,8 @@ import React, { useState, useEffect } from 'react';
 import { Card, Select, Space, Typography, Spin } from 'antd';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { coinGeckoService, type CryptoData, type PriceDataPoint, type TimePeriod } from '../services/coingecko';
+import { formatPrice, formatDate, formatPriceShort } from '../utils';
+import CustomTooltip from './CustomTooltip';
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -71,42 +73,6 @@ const PriceChart: React.FC<PriceChartProps> = ({ height = 400 }) => {
 
   const selectedCryptoData = cryptocurrencies.find(crypto => crypto.id === selectedCrypto);
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 6,
-    }).format(price);
-  };
-
-  const formatDate = (timestamp: number) => {
-    const date = new Date(timestamp);
-    if (timePeriod === '1' || timePeriod === '24') {
-      return date.toLocaleTimeString();
-    } else if (timePeriod === '7') {
-      return date.toLocaleDateString();
-    } else {
-      return date.toLocaleDateString();
-    }
-  };
-
-  const CustomTooltip = ({ active, payload, label }: any) => {
-    if (active && payload && payload.length) {
-      return (
-        <div style={{
-          backgroundColor: 'white',
-          border: '1px solid #ccc',
-          padding: '10px',
-          borderRadius: '4px'
-        }}>
-          <p><strong>{formatDate(label)}</strong></p>
-          <p>Price: {formatPrice(payload[0].value)}</p>
-        </div>
-      );
-    }
-    return null;
-  };
 
   return (
     <Card title="Cryptocurrency Price Chart" style={{ margin: '20px 0' }}>
@@ -173,14 +139,18 @@ const PriceChart: React.FC<PriceChartProps> = ({ height = 400 }) => {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis 
                   dataKey="timestamp" 
-                  tickFormatter={formatDate}
+                  tickFormatter={(value) => formatDate(value, timePeriod)}
                   interval="preserveStartEnd"
+                  angle={-45}
+                  textAnchor="end"
+                  height={70}
+                  style={{ fontSize: '12px' }}
                 />
                 <YAxis 
-                  tickFormatter={(value) => formatPrice(value)}
+                  tickFormatter={(value) => formatPriceShort(value)}
                   domain={['dataMin', 'dataMax']}
                 />
-                <Tooltip content={<CustomTooltip />} />
+                <Tooltip content={<CustomTooltip timePeriod={timePeriod} />} />
                 <Legend />
                 <Line
                   type="monotone"

@@ -9,7 +9,7 @@ import type { RouteObject } from 'react-router-dom';
 
 const NetworkTopology = lazy(() => import('../../pages/network-topology/NetworkTopology'));
 const MathModels = lazy(() => import('../../pages/math-models/MathModels'));
-const MarketOverview = lazy(() => import('../../pages/ market-overview/MarketOverview'));
+const MarketOverview = lazy(() => import('../../pages/market-overview/MarketOverview'));
 const StrategyManagement = lazy(() => import('../../pages/strategy-management/StrategyManagement'));
 const ArbitrageVisualizer = lazy(() => import('../../pages/arbitrage-visualizer/ArbitrageVisualizer'));
 const ExecutionConsole = lazy(() => import('../../pages/execution-console/ExecutionConsole'));
