@@ -7,13 +7,13 @@
 import { lazy } from 'react';
 import type { RouteObject } from 'react-router-dom';
 
-const NetworkTopology = lazy(() => import('../pages/NetworkTopology'));
-const MathModels = lazy(() => import('../pages/MathModels'));
-const MarketOverview = lazy(() => import('../pages/MarketOverview'));
-const StrategyManagement = lazy(() => import('../pages/StrategyManagement'));
-const ArbitrageVisualizer = lazy(() => import('../pages/ArbitrageVisualizer'));
-const ExecutionConsole = lazy(() => import('../pages/ExecutionConsole'));
-const OfflineAnalytics = lazy(() => import('../pages/OfflineAnalytics'));
+const NetworkTopology = lazy(() => import('../../pages/network-topology/NetworkTopology'));
+const MathModels = lazy(() => import('../../pages/math-models/MathModels'));
+const MarketOverview = lazy(() => import('../../pages/ market-overview/MarketOverview'));
+const StrategyManagement = lazy(() => import('../../pages/strategy-management/StrategyManagement'));
+const ArbitrageVisualizer = lazy(() => import('../../pages/arbitrage-visualizer/ArbitrageVisualizer'));
+const ExecutionConsole = lazy(() => import('../../pages/execution-console/ExecutionConsole'));
+const OfflineAnalytics = lazy(() => import('../../pages/offline-analytics/OfflineAnalytics'));
 
 const routes: RouteObject[] = [
   { path: '/', element: <NetworkTopology /> },

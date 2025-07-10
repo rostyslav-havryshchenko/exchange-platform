@@ -10,7 +10,7 @@ import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
 import { Suspense } from 'react';
 import './App.scss';
 import AppMenu from './components/AppMenu';
-import routes from './routes';
+import routes from './common/routes';
 
 const { Header, Content } = Layout;
 

@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import PriceChart from '../components/PriceChart';
+import PriceChart from './components/PriceChart';
 
 const NetworkTopology: React.FC = () => {
   return (
