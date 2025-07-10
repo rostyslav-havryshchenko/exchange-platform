@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Card, Select, Space, Typography, Spin } from 'antd';
+import { Card, Select, Space, Typography, Spin, Row, Col } from 'antd';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { coinGeckoService, type CryptoData, type PriceDataPoint, type TimePeriod } from '../services/coingecko';
 import { formatPrice, formatDate, formatPriceShort } from '../utils';
@@ -73,38 +73,45 @@ const PriceChart: React.FC<PriceChartProps> = ({ height }) => {
 
   const selectedCryptoData = cryptocurrencies.find(crypto => crypto.id === selectedCrypto);
 
-
   return (
     <Card title="Cryptocurrency Price Chart" style={{ margin: '20px 0' }}>
       <Space direction="vertical" style={{ width: '100%' }}>
-        <Space>
-          <Text strong>Cryptocurrency:</Text>
-          <Select
-            value={selectedCrypto}
-            onChange={setSelectedCrypto}
-            style={{ width: 200 }}
-            placeholder="Select cryptocurrency"
-          >
-            {cryptocurrencies.map(crypto => (
-              <Option key={crypto.id} value={crypto.id}>
-                {crypto.name} ({crypto.symbol.toUpperCase()})
-              </Option>
-            ))}
-          </Select>
-
-          <Text strong>Time Period:</Text>
-          <Select
-            value={timePeriod}
-            onChange={setTimePeriod}
-            style={{ width: 120 }}
-          >
-            {timePeriodOptions.map(option => (
-              <Option key={option.value} value={option.value}>
-                {option.label}
-              </Option>
-            ))}
-          </Select>
-        </Space>
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={12}>
+            <Space direction="vertical" style={{ width: '100%' }}>
+              <Text strong>Cryptocurrency:</Text>
+              <Select
+                value={selectedCrypto}
+                onChange={setSelectedCrypto}
+                style={{ width: '100%' }}
+                placeholder="Select cryptocurrency"
+              >
+                {cryptocurrencies.map(crypto => (
+                  <Option key={crypto.id} value={crypto.id}>
+                    {crypto.name} ({crypto.symbol.toUpperCase()})
+                  </Option>
+                ))}
+              </Select>
+            </Space>
+          </Col>
+          
+          <Col xs={24} sm={12}>
+            <Space direction="vertical" style={{ width: '100%' }}>
+              <Text strong>Time Period:</Text>
+              <Select
+                value={timePeriod}
+                onChange={setTimePeriod}
+                style={{ width: '100%' }}
+              >
+                {timePeriodOptions.map(option => (
+                  <Option key={option.value} value={option.value}>
+                    {option.label}
+                  </Option>
+                ))}
+              </Select>
+            </Space>
+          </Col>
+        </Row>
 
         {selectedCryptoData && (
           <div style={{ marginBottom: '10px' }}>
