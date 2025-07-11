@@ -7,4 +7,5 @@ export interface CryptoData {
     total_volume: number;
     price_change_percentage_24h: number;
     last_updated: string;
+    image: string;
   }
