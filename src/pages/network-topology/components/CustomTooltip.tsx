@@ -23,7 +23,11 @@ const CustomTooltip: React.FC<CustomTooltipProps> = React.memo(({
         borderRadius: '4px'
       }}>
         <p><strong>{formatDate(label!, timePeriod)}</strong></p>
-        <p>Price: {formatPrice(payload[0].value)}</p>
+        {payload.map((entry, idx) => (
+          <p key={idx} style={{ color: entry.color, margin: 0 }}>
+            {entry.name}: {formatPrice(entry.value)}
+          </p>
+        ))}
       </div>
     );
   }

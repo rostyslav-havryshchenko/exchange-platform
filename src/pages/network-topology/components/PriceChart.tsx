@@ -43,7 +43,7 @@ const PriceChart: React.FC<PriceChartProps> = ({ height }) => {
   useEffect(() => {
     const loadCryptocurrencies = async () => {
       try {
-        const data = await coinGeckoService.getTopCryptocurrencies(20);
+        const data = await coinGeckoService.getTopCryptocurrencies(40);
         setCryptocurrencies(data);
         if (data.length > 0) {
           setSelectedCrypto(data[0].id);
