@@ -6,7 +6,7 @@
  */
 
 import { showNotification } from "../../../common/utils";
-import type { CryptoData, PriceDataPoint } from "../interfaces";
+import type { CryptoData, PriceDataPoint, TrendingCoin } from "../interfaces";
 import type { TimePeriod } from "../types";
 
 const BASE_URL = 'https://api.coingecko.com/api/v3';
@@ -50,6 +50,22 @@ class CoinGeckoService {
       return priceData;
     } catch (error) {
       this._handleApiError('cryptocurrencies history');
+    }
+  }
+
+  /**
+   * Fetches trending coins from CoinGecko.
+   * Returns an array of trending coin items.
+   */
+  async getTrendingCoins(): Promise<TrendingCoin[]> {
+    try {
+      const res = await fetch(`${BASE_URL}/search/trending`);
+      if (!res.ok) throw new Error('Failed to fetch trending coins');
+      const data = await res.json();
+  
+      return data.coins.map((c: any) => c.item);
+    } catch (err) {
+      this._handleApiError('trending coins');
     }
   }
 
