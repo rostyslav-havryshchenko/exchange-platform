@@ -1,7 +1,7 @@
 /**
  * App.tsx
  *
- * The main application component. Sets up Ant Design layout, header, and content wrappers.
+ * The main application component. Sets up Ant Design layout, §header, and content wrappers.
  * Integrates the AppMenu and renders the current route using React Router.
  * All page content is wrapped for consistent max-width and padding.
  */
@@ -10,7 +10,7 @@ import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
 import { Suspense } from 'react';
 import './App.scss';
 import routes from './common/routes/routes';
-import { AppMenu } from './common/components';
+import { AppMenu, ErrorBoundary } from './common/components';
 
 const { Header, Content } = Layout;
 
@@ -34,20 +34,22 @@ function AppRoutes() {
 
 function App() {
   return (
-    <Router>
-      <Layout style={{ minHeight: '100vh' }}>
-        <Header style={{ display: 'flex', alignItems: 'center', padding: 0 }}>
-          <div className="page-wrapper">
-            <AppMenu items={menuItems} />
-          </div>
-        </Header>
-        <Content style={{ padding: '24px 0', width: '100%' }}>
-          <div className="page-wrapper">
-            <AppRoutes />
-          </div>
-        </Content>
-      </Layout>
-    </Router>
+    <ErrorBoundary>
+      <Router>
+        <Layout style={{ minHeight: '100vh' }}>
+          <Header style={{ display: 'flex', alignItems: 'center', padding: 0 }}>
+            <div className="page-wrapper">
+              <AppMenu items={menuItems} />
+            </div>
+          </Header>
+          <Content style={{ padding: '24px 0', width: '100%' }}>
+            <div className="page-wrapper">
+              <AppRoutes />
+            </div>
+          </Content>
+        </Layout>
+      </Router>
+    </ErrorBoundary>
   );
 }
 

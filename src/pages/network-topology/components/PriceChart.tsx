@@ -8,9 +8,11 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Select, Space, Typography, Spin, Row, Col } from 'antd';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-import { coinGeckoService, type CryptoData, type PriceDataPoint, type TimePeriod } from '../services/coingecko';
+import { coinGeckoService } from '../services/coingecko';
 import { formatPrice, formatDate, formatPriceShort } from '../utils';
 import CustomTooltip from './CustomTooltip';
+import type { CryptoData, PriceDataPoint } from '../interfaces';
+import type { TimePeriod } from '../types';
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -40,6 +42,7 @@ const PriceChart: React.FC<PriceChartProps> = ({ height }) => {
       try {
         const data = await coinGeckoService.getTopCryptocurrencies(20);
         setCryptocurrencies(data);
+        
         if (data.length > 0) {
           setSelectedCrypto(data[0].id);
         }

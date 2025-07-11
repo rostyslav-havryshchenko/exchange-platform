@@ -1,0 +1,1 @@
+export type TimePeriod = '1' | '24' | '7' | '30' | '90';

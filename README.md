@@ -1,69 +1,52 @@
-# React + TypeScript + Vite
+# Exchange Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React application bootstrapped with Vite.
+## Table of Contents
 
-Currently, two official plugins are available:
+- [Demo](#demo)  
+- [Prerequisites](#prerequisites)  
+- [Getting Started](#getting-started)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Demo
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The latest version of the app is deployed to a test environment:  
+[https://exchange-platform-psi.vercel.app](https://exchange-platform-psi.vercel.app)
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Prerequisites
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Node.js** (version managed via nvm)
+- **npm** (bundled with Node.js) _or_ alternative package manager (**Yarn**, **pnpm**)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+This project includes an `.nvmrc` file specifying node version. Use `nvm install` and `nvm use` to switch to the correct Node.js version.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Getting Started
+
+**1. Install Node.js**  
+Ensure you have [nvm](https://github.com/nvm-sh/nvm) installed, then run:
+
+`nvm install` then
+`nvm use`
+
+**2. Clone the repository**  
+
+git clone https://github.com/rostyslav-havryshchenko/exchange-platform.git
+
+**3. Navigate into the project directory** 
+
+`cd exchange-platform`
+
+**4. Install dependencies** 
+
+`npm install`
+
+**5. Running Locally** 
+
+`npm run dev`
+
+---
